@@ -1,4 +1,6 @@
-﻿namespace Bhtp.Url.Models
+﻿using System;
+
+namespace Bhtp.Url
 {
     /// <summary>
     /// The trip object holds all information about the trip to insure
@@ -23,17 +25,17 @@
         /// <summary>
         /// The date of departure in ISO 8601 format
         /// </summary>
-        public string DepartureDate { get; set; }
+        public DateTime? DepartureDate { get; set; }
 
         /// <summary>
         /// The date of return from the trip in ISO 8601 format
         /// </summary>
-        public string ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
 
         /// <summary>
         /// The date the first payment toward the trip was made in ISO 8601 format
         /// </summary>
-        public string InitialPaymentDate { get; set; }
+        public DateTime? InitialPaymentDate { get; set; }
 
         /// <summary>
         /// The email of the policyholder
@@ -68,19 +70,19 @@
                 s.AddValue("rs", this.ResidenceStateIsoCode2);
             }
 
-            if (!string.IsNullOrEmpty(this.DepartureDate))
+            if (this.DepartureDate != null && this.DepartureDate.HasValue)
             {
-                s.AddValue("dd", this.DepartureDate);
+                s.AddValue("dd", this.DepartureDate.Value.ToString("yyyy-MM-dd"));
             }
 
-            if (!string.IsNullOrEmpty(this.ReturnDate))
+            if (this.ReturnDate != null && this.ReturnDate.HasValue)
             {
-                s.AddValue("rd", this.ReturnDate);
+                s.AddValue("rd", this.ReturnDate.Value.ToString("yyyy-MM-dd"));
             }
 
-            if (!string.IsNullOrEmpty(this.InitialPaymentDate))
+            if (this.InitialPaymentDate != null && this.InitialPaymentDate.HasValue)
             {
-                s.AddValue("pd", this.InitialPaymentDate);
+                s.AddValue("pd", this.InitialPaymentDate.Value.ToString("yyyy-MM-dd"));
             }
 
             if (!string.IsNullOrEmpty(this.PolicyHolderEmail))

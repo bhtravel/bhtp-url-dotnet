@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Bhtp.Url.Models
+namespace Bhtp.Url
 {
     /// <summary>
     /// 

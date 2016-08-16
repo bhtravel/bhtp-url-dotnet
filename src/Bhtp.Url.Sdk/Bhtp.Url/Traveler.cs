@@ -1,4 +1,6 @@
-﻿namespace Bhtp.Url.Models
+﻿using System;
+
+namespace Bhtp.Url
 {
     /// <summary>
     /// The traveler object holds all information about the traveler to insure
@@ -13,7 +15,7 @@
         /// <summary>
         /// The date of birth of the traveler in ISO 8601 format
         /// </summary>
-        public string BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         /// <summary>
         /// The cost of the trip for this traveler in US dollars
@@ -37,9 +39,9 @@
         {
             Serializable s = new Serializable();
 
-            if (!string.IsNullOrEmpty(this.BirthDate))
+            if (this.BirthDate != null && this.BirthDate.HasValue)
             {
-                s.AddValue("db", this.BirthDate);
+                s.AddValue("db", this.BirthDate.Value.ToString("yyyy-MM-dd"));
             }
             else if (this.Age != null)
             {

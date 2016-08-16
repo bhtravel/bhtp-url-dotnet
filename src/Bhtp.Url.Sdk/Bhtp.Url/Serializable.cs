@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Bhtp.Url.Models
+[assembly:InternalsVisibleTo("Bhtp.Url.Tests")]
+namespace Bhtp.Url
 {
     public enum DelimiterType
     {

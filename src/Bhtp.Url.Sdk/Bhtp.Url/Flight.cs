@@ -1,4 +1,6 @@
-﻿namespace Bhtp.Url.Models
+﻿using System;
+
+namespace Bhtp.Url
 {
     /// <summary>
     /// The flight object holds all information about the flights to insure
@@ -8,7 +10,7 @@
         /// <summary>
         /// the date of the flight's departure in ISO 8601 format
         /// </summary>
-        public string DepartureDate { get; set; }
+        public DateTime? DepartureDate { get; set; }
 
         /// <summary>
         /// The number of the flight
@@ -38,7 +40,7 @@
         /// <param name="airlineCode">The IATA code of the airline that is servicing the flight (Example: Delta Air Lines Inc. = DL)</param>
         /// <param name="departureAirportCode">The IATA code of the airport the flight departs from (Example: O'Hare International Airport = ORD)</param>
         /// <param name="arrivalAirportCode">The IATA code of the airport the flight arrives at (Example: O'Hare International Airport = ORD)</param>
-        public Flight(string departureDate, int flightNumber, string airlineCode, string departureAirportCode, string arrivalAirportCode)
+        public Flight(DateTime? departureDate, int? flightNumber, string airlineCode, string departureAirportCode, string arrivalAirportCode)
         {
             this.DepartureDate = departureDate;
             this.FlightNumber = flightNumber;
@@ -55,9 +57,9 @@
         {
             Serializable s = new Serializable();
 
-            if (!string.IsNullOrEmpty(this.AirlineCode))
+            if (this.DepartureDate != null && this.DepartureDate.HasValue)
             {
-                s.AddValue("d", this.DepartureDate);
+                s.AddValue("d", this.DepartureDate.Value.ToString("yyyy-MM-dd"));
             }
 
             if (this.FlightNumber != null)
