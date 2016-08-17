@@ -6,7 +6,7 @@ namespace Bhtp.Url
     /// <summary>
     /// The flight object holds all information about the flights to insure
     /// </summary>
-    public class Flight
+    public class Flight : ISerializable
     {
         /// <summary>
         /// Creates an instance of Flight.

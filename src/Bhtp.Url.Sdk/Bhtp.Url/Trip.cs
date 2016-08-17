@@ -24,17 +24,17 @@ namespace Bhtp.Url
         public string ResidencePostalCode { get; set; }
 
         /// <summary>
-        /// The date of departure in ISO 8601 format
+        /// The local date of departure in ISO 8601 format
         /// </summary>
         public DateTime? DepartureDate { get; set; }
 
         /// <summary>
-        /// The date of return from the trip in ISO 8601 format
+        /// The local date of return from the trip in ISO 8601 format
         /// </summary>
         public DateTime? ReturnDate { get; set; }
 
         /// <summary>
-        /// The date the first payment toward the trip was made in ISO 8601 format
+        /// The local date the first payment toward the trip was made in ISO 8601 format
         /// </summary>
         public DateTime? InitialPaymentDate { get; set; }
 

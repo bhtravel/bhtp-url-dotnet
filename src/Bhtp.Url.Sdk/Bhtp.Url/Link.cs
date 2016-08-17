@@ -34,7 +34,7 @@ namespace Bhtp.Url
         /// <summary>
         /// Indicates whether or not the final created link can be used for production or not
         /// </summary>
-        public bool EnableProdMode { get; set; }
+        public bool EnableProdMode { get; private set; }
 
         /// <summary>
         /// The id of the agent who is referring the user to the site. Used to track commission
@@ -103,29 +103,61 @@ namespace Bhtp.Url
         {
             StringBuilder link = new StringBuilder();
 
-            // Main data
-            Serializable s = new Serializable();
+            this.AppendAnalyticsData(link);
 
-            if (!string.IsNullOrEmpty(this.AgentCode))
+            this.AppendTripData(link);
+
+            this.AppendPolicyHolderData(link);
+
+            this.AppendTravelerData(link);
+
+            this.AppendFlightData(link);
+
+            this.RemovingLeadingDelimiter(link);
+
+            string baseUrl = this.EnableProdMode ? Constants.ProdBaseUrl : Constants.PreProdBaseUrl;
+
+            StringBuilder result = new StringBuilder();
+            result.Append(baseUrl);
+
+            if (link.Length > 0)
             {
-                s.AddValue(Constants.AnalyticsKeys.Source, this.AgentCode);
-                s.AddValue(Constants.AnalyticsKeys.Medium, Constants.Partner);
+                result.Append(Constants.QueryStringStart);
+                result.Append(link.ToString());
             }
 
-            if (!string.IsNullOrEmpty(this.CampaignId))
+            return result.ToString();
+        }
+
+        private void AppendAnalyticsData(StringBuilder link)
+        {
+            if (link != null)
             {
-                s.AddValue(Constants.AnalyticsKeys.Campaign, this.CampaignId);
+                Serializable s = new Serializable();
+
+                if (!string.IsNullOrEmpty(this.AgentCode))
+                {
+                    s.AddValue(Constants.AnalyticsKeys.Source, this.AgentCode);
+                    s.AddValue(Constants.AnalyticsKeys.Medium, Constants.Partner);
+                }
+
+                if (!string.IsNullOrEmpty(this.CampaignId))
+                {
+                    s.AddValue(Constants.AnalyticsKeys.Campaign, this.CampaignId);
+                }
+
+                if (!string.IsNullOrEmpty(this.ProductId))
+                {
+                    s.AddValue(Constants.AnalyticsKeys.Package, this.ProductId);
+                }
+
+                link.Append(s.Serialize(DelimiterType.Link));
             }
+        }
 
-            if (!string.IsNullOrEmpty(this.ProductId))
-            {
-                s.AddValue(Constants.AnalyticsKeys.Package, this.ProductId);
-            }
-
-            link.Append(s.Serialize(DelimiterType.Link));
-
-            // Trip
-            if (this.Trip != null)
+        private void AppendTripData(StringBuilder link)
+        {
+            if (link != null && this.Trip != null)
             {
                 string tripString = this.Trip.Serialize();
 
@@ -136,9 +168,11 @@ namespace Bhtp.Url
 
                 link.Append(tripString);
             }
+        }
 
-            // Travelers
-            if (this.PolicyHolder != null)
+        private void AppendPolicyHolderData(StringBuilder link)
+        {
+            if (link != null && this.PolicyHolder != null)
             {
                 string travelerString = this.PolicyHolder.Serialize();
 
@@ -147,8 +181,11 @@ namespace Bhtp.Url
                     link.Append(this.GetQueryStringKey(Constants.TripKeys.PolicyHolder) + travelerString);
                 }
             }
+        }
 
-            if (this.Travelers != null && this.Travelers.Any())
+        private void AppendTravelerData(StringBuilder link)
+        {
+            if (link != null && this.Travelers != null && this.Travelers.Any())
             {
                 foreach (Traveler traveler in this.Travelers)
                 {
@@ -156,9 +193,11 @@ namespace Bhtp.Url
                     link.Append(travelerString);
                 }
             }
+        }
 
-            // Flights
-            if (this.Flights != null && this.Flights.Any())
+        private void AppendFlightData(StringBuilder link)
+        {
+            if (link != null && this.Flights != null && this.Flights.Any())
             {
                 foreach (Flight flight in this.Flights)
                 {
@@ -166,32 +205,18 @@ namespace Bhtp.Url
                     link.Append(flightString);
                 }
             }
+        }
 
-            if (link.Length > 0 && link[0].ToString() == Constants.QueryStringPairDelimeter)
+        /// <summary>
+        /// If link starts with &, remove it
+        /// </summary>
+        /// <param name="link"></param>
+        private void RemovingLeadingDelimiter(StringBuilder link)
+        {
+            if (link != null && link.Length > 0 && link[0].ToString() == Constants.QueryStringPairDelimeter)
             {
                 link = link.Remove(0, 1);
             }
-
-            string baseUrl = Constants.ProdBaseUrl;
-
-            if (this.EnableProdMode != true)
-            {
-                baseUrl = Constants.PreProdBaseUrl;
-            }
-
-            StringBuilder baseLink = new StringBuilder();
-            baseLink.Append(baseUrl);
-
-            if (link.Length > 0)
-            {
-                baseLink.Append(Constants.QueryStringStart);
-            }
-
-            StringBuilder result = new StringBuilder();
-            result.Append(baseLink.ToString());
-            result.Append(link.ToString());
-
-            return result.ToString();
         }
 
         private string GetQueryStringKey(string key)
