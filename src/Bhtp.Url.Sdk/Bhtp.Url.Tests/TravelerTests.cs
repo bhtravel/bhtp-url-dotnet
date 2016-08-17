@@ -6,14 +6,10 @@ namespace Bhtp.Url.Tests
 {
     public class TravelerTestsBase
     {
-        protected static decimal TripCost { get { return 1000m; } }
-
-        protected static int Age { get { return 27; } }
-
-        protected static DateTime BirthDate { get { return new DateTime(1987, 08, 25); } }
-
-        protected static string ExpectedBirthDate { get { return BirthDate.ToString("yyyy-MM-dd"); } }
-
+        protected static decimal TripCost = 1000m;
+        protected static int Age = 27;
+        protected static DateTime BirthDate = new DateTime(1987, 08, 25);
+        protected static string ExpectedBirthDate = BirthDate.ToString("yyyy-MM-dd");
     }
 
     public class Traveler_ShouldOnlySerializeAgeWhenBirthDateNotProvided : TravelerTestsBase

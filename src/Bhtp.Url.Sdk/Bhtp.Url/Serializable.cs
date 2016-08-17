@@ -2,7 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 
-[assembly:InternalsVisibleTo("Bhtp.Url.Tests")]
+[assembly: InternalsVisibleTo("Bhtp.Url.Tests")]
+
 namespace Bhtp.Url
 {
     public enum DelimiterType
@@ -16,10 +17,10 @@ namespace Bhtp.Url
     /// </summary>
     internal class Serializable
     {
-        private readonly string CustomValueDelimiter = ":";
-        private readonly string QueryStringValueDelimiter = "=";
-        private readonly string CustomPairDelimeter = ";";
-        private readonly string QueryStringPairDelimeter = "&";
+        internal readonly string CustomValueDelimiter = ":";
+        internal readonly string QueryStringValueDelimiter = "=";
+        internal readonly string CustomPairDelimeter = ";";
+        internal readonly string QueryStringPairDelimeter = "&";
 
         /// <summary>
         /// Internal dictionary used to hold the keys and values to serialize

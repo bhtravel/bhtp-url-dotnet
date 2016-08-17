@@ -6,7 +6,7 @@ namespace Bhtp.Url.Tests
 {
     public class TripTestsBase
     {
-        public static class Values
+        protected static class Values
         {
             public static string DestinationCountryIsoCode2 = "GB";
             public static string ResidenceStateIsoCode2 = "WI";
@@ -25,7 +25,7 @@ namespace Bhtp.Url.Tests
             public static int? TotalTravelerCount = 5;
         }
 
-        public static class Expected
+        protected static class Expected
         {
             public static string Destination = $"dc={Values.DestinationCountryIsoCode2}";
             public static string ResidenceStateOnly = $"rs={Values.ResidenceStateIsoCode2}";
@@ -42,7 +42,6 @@ namespace Bhtp.Url.Tests
 
     public class Trip_ShouldOnlySerializeProvidedData : TripTestsBase
     {
-
         public static IEnumerable<object[]> TestData
         {
             get

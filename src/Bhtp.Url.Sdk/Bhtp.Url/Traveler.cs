@@ -8,6 +8,15 @@ namespace Bhtp.Url
     public class Traveler : ISerializable
     {
         /// <summary>
+        /// Creates an instance of Traveler
+        /// </summary>
+        /// <param name="tripCost">The cost of the trip for this traveler in US dollars</param>
+        public Traveler(decimal? tripCost = null)
+        {
+            this.TripCost = tripCost;
+        }
+
+        /// <summary>
         /// The age of the traveler. If the birthdate is specified, this value is ignored
         /// </summary>
         public int? Age { get; set; }
@@ -21,15 +30,6 @@ namespace Bhtp.Url
         /// The cost of the trip for this traveler in US dollars
         /// </summary>
         public decimal? TripCost { get; set; }
-
-        /// <summary>
-        /// Creates an instance of Traveler
-        /// </summary>
-        /// <param name="tripCost">The cost of the trip for this traveler in US dollars</param>
-        public Traveler(decimal? tripCost = null)
-        {
-            this.TripCost = tripCost;
-        }
 
         /// <summary>
         /// Creates a string represtening the traveler that can be used in the final link

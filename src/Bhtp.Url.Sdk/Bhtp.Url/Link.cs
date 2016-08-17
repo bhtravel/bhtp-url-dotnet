@@ -5,58 +5,17 @@ using System.Text;
 namespace Bhtp.Url
 {
     /// <summary>
-    /// 
+    /// The link object holds all information about the integration and is the top level object
     /// </summary>
     public class Link
     {
-
         /// <summary>
-        /// 
+        /// Creates an instance of Link.
         /// </summary>
-        public bool EnableProdMode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string AgentCode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CampaignId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ProductId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Trip Trip { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IEnumerable<Flight> Flights { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IEnumerable<Traveler> Travelers { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Traveler PolicyHolder { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="agentCode"></param>
-        /// <param name="campaignId"></param>
-        /// <param name="productId"></param>
-        /// <param name="enableProdMode"></param>
+        /// <param name="agentCode">AgentCode the id of the agent who is referring the user to the site. Used to track commission</param>
+        /// <param name="campaignId">An id allowing the integrating system to uniquely identify where the reference is coming from</param>
+        /// <param name="productId">Specifies a perferred product. If not supplied, the user will be preseted with the product selection page</param>
+        /// <param name="enableProdMode">Indicates whether or not the final created link can be used for production or not</param>
         public Link(string agentCode, string campaignId, string productId, bool enableProdMode = false)
         {
             this.AgentCode = agentCode;
@@ -72,27 +31,73 @@ namespace Bhtp.Url
         }
 
         /// <summary>
-        /// 
+        /// Indicates whether or not the final created link can be used for production or not
         /// </summary>
-        /// <param name="flight"></param>
+        public bool EnableProdMode { get; set; }
+
+        /// <summary>
+        /// The id of the agent who is referring the user to the site. Used to track commission
+        /// </summary>
+        public string AgentCode { get; set; }
+
+        /// <summary>
+        /// An id allowing the integrating system to uniquely identify where the reference is coming from
+        /// </summary>
+        public string CampaignId { get; set; }
+
+        /// <summary>
+        /// Specifies a perferred product. If not supplied, the user will be preseted with the product selection page
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
+        /// Information about the trip to insure
+        /// </summary>
+        public Trip Trip { get; set; }
+
+        /// <summary>
+        /// Information about the flights to insure
+        /// </summary>
+        public ICollection<Flight> Flights { get; set; }
+
+        /// <summary>
+        /// Information about the travelers to ensure except the traveler that is the policyholder
+        /// </summary>
+        public ICollection<Traveler> Travelers { get; set; }
+
+        /// <summary>
+        /// Information about the traveler that is the policyholder
+        /// </summary>
+        public Traveler PolicyHolder { get; set; }
+
+        /// <summary>
+        /// Add a flight to the link
+        /// </summary>
+        /// <param name="flight">The filled flight object to add to the link</param>
         public void AddFlight(Flight flight)
         {
-
+            if (flight != null)
+            {
+                this.Flights.Add(flight);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Add a traveler to the link
         /// </summary>
-        /// <param name="traveler"></param>
+        /// <param name="traveler">The filled traveler object to add to the link</param>
         public void AddTraveler(Traveler traveler)
         {
-
+            if (traveler != null)
+            {
+                this.Travelers.Add(traveler);
+            }
         }
-        
+
         /// <summary>
-        /// 
+        /// Given all the information containined within the link and its sub-objects, a link is generated that can be provided to a user
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the usable link</returns>
         public string GenerateLink()
         {
             StringBuilder link = new StringBuilder();
@@ -119,23 +124,16 @@ namespace Bhtp.Url
             link.Append(s.Serialize(DelimiterType.Link));
 
             // Trip
-            string tripString = this.Trip.Serialize();
-
-            if (tripString.Length > 0 && link.Length > 0)
+            if (this.Trip != null)
             {
-                link.Append("&");
-            }
+                string tripString = this.Trip.Serialize();
 
-            link.Append(tripString);
-
-            // Flights
-            if (this.Flights != null && this.Flights.Any())
-            {
-                foreach (Flight flight in this.Flights)
+                if (tripString.Length > 0 && link.Length > 0)
                 {
-                    string flightString = "&f=" + flight.Serialize();
-                    link.Append(flightString);
+                    link.Append("&");
                 }
+
+                link.Append(tripString);
             }
 
             // Travelers
@@ -158,12 +156,22 @@ namespace Bhtp.Url
                 }
             }
 
-            if (link[0] == '&')
+            // Flights
+            if (this.Flights != null && this.Flights.Any())
+            {
+                foreach (Flight flight in this.Flights)
+                {
+                    string flightString = "&f=" + flight.Serialize();
+                    link.Append(flightString);
+                }
+            }
+
+            if (link.Length > 0 && link[0] == '&')
             {
                 link = link.Remove(0, 1);
             }
 
-            string env = "";
+            string env = string.Empty;
 
             if (this.EnableProdMode != true)
             {
@@ -171,7 +179,7 @@ namespace Bhtp.Url
             }
 
             StringBuilder baseLink = new StringBuilder();
-            baseLink.Append($"https://${env}www.bhtp.com/i");
+            baseLink.Append($"https://{env}www.bhtp.com/i");
 
             if (link.Length > 0)
             {
