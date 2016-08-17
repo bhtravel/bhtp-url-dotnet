@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bhtp.Url.Utility;
 using Xunit;
+using System.Text;
 
 namespace Bhtp.Url.Tests
 {
@@ -9,7 +11,7 @@ namespace Bhtp.Url.Tests
         protected static class Values
         {
             public static string AgentCode = "AAgent";
-            public static string Medium = "Partner";
+            public static string Medium = Constants.Partner;
             public static string Campaign = "TestPromo";
             public static string Package = "AirCare";
 
@@ -26,7 +28,7 @@ namespace Bhtp.Url.Tests
             public static IEnumerable<Traveler> Travelers = new List<Traveler> { Traveler1 };
 
             public static DateTime DepartureDate = new DateTime(2016, 6, 24);
-            public static string DepartureDateString = DepartureDate.ToString("yyyy-MM-dd");
+            public static string DepartureDateString = DepartureDate.ToIso8601();
             public static int FlightNumber = 1234;
             public static string AirlineCode = "DL";
             public static string DepartureAirportCode = "PNS";
@@ -89,13 +91,13 @@ namespace Bhtp.Url.Tests
             {
                 return new[]
                 {
-                    new object[] { Values.AgentCode, Values.Medium, null, null, null, null, null, null, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.SourceAndMedium },
-                    new object[] { null, null, Values.Campaign, null, null, null, null, null, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.Campaign },
-                    new object[] { null, null, null, Values.Package, null, null, null, null, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.Package },
-                    new object[] { null, null, null, null, Values.Trip, null, null, null, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.Trip },
-                    new object[] { null, null, null, null, null, Values.PolicyHolder, null, null, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.PolicyHolder },
-                    new object[] { null, null, null, null, null, null, Values.Travelers, null, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.Travelers },
-                    new object[] { null, null, null, null, null, null, null, Values.Flights, Expected.NonProdBaseUrl + Expected.QueryStringStart + Expected.Flights },
+                    new object[] { Values.AgentCode, Values.Medium, null, null, null, null, null, null, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.SourceAndMedium },
+                    new object[] { null, null, Values.Campaign, null, null, null, null, null, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.Campaign },
+                    new object[] { null, null, null, Values.Package, null, null, null, null, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.Package },
+                    new object[] { null, null, null, null, Values.Trip, null, null, null, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.Trip },
+                    new object[] { null, null, null, null, null, Values.PolicyHolder, null, null, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.PolicyHolder },
+                    new object[] { null, null, null, null, null, null, Values.Travelers, null, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.Travelers },
+                    new object[] { null, null, null, null, null, null, null, Values.Flights, Expected.NonProdBaseUrl + Constants.QueryStringStart + Expected.Flights },
                     new object[] { Values.AgentCode, Values.Medium, Values.Campaign, Values.Package, Values.Trip, Values.PolicyHolder, Values.Travelers, Values.Flights, Expected.Complete },
                 };
             }

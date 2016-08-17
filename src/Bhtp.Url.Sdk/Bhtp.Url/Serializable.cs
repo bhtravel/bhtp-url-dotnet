@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bhtp.Url.Utility;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -17,11 +18,6 @@ namespace Bhtp.Url
     /// </summary>
     internal class Serializable
     {
-        internal readonly string CustomValueDelimiter = ":";
-        internal readonly string QueryStringValueDelimiter = "=";
-        internal readonly string CustomPairDelimeter = ";";
-        internal readonly string QueryStringPairDelimeter = "&";
-
         /// <summary>
         /// Internal dictionary used to hold the keys and values to serialize
         /// </summary>
@@ -45,8 +41,8 @@ namespace Bhtp.Url
         public string Serialize(DelimiterType delimType)
         {
             // Determine delim strings
-            string valueDelim = delimType == DelimiterType.Object ? this.CustomValueDelimiter : this.QueryStringValueDelimiter;
-            string pairDelim = delimType == DelimiterType.Object ? this.CustomPairDelimeter : this.QueryStringPairDelimeter;
+            string valueDelim = delimType == DelimiterType.Object ? Constants.CustomValueDelimiter : Constants.QueryStringValueDelimiter;
+            string pairDelim = delimType == DelimiterType.Object ? Constants.CustomPairDelimeter : Constants.QueryStringPairDelimeter;
 
             StringBuilder result = new StringBuilder();
 

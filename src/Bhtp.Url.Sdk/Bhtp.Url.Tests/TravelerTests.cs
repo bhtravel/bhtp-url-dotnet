@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bhtp.Url.Utility;
 using Xunit;
 
 namespace Bhtp.Url.Tests
@@ -9,7 +10,7 @@ namespace Bhtp.Url.Tests
         protected static decimal TripCost = 1000m;
         protected static int Age = 27;
         protected static DateTime BirthDate = new DateTime(1987, 08, 25);
-        protected static string ExpectedBirthDate = BirthDate.ToString("yyyy-MM-dd");
+        protected static string ExpectedBirthDate = BirthDate.ToIso8601();
     }
 
     public class Traveler_ShouldOnlySerializeAgeWhenBirthDateNotProvided : TravelerTestsBase

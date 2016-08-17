@@ -37,6 +37,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility\Constants.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="ISerializable.cs" />
     <Compile Include="Link.cs" />
@@ -44,6 +45,7 @@
     <Compile Include="Serializable.cs" />
     <Compile Include="Traveler.cs" />
     <Compile Include="Trip.cs" />
+    <Compile Include="Utility\Extensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bhtp.Url.Utility;
+using System;
 
 namespace Bhtp.Url
 {
@@ -41,16 +42,16 @@ namespace Bhtp.Url
 
             if (this.BirthDate != null && this.BirthDate.HasValue)
             {
-                s.AddValue("db", this.BirthDate.Value.ToString("yyyy-MM-dd"));
+                s.AddValue(Constants.TravelerKeys.BirthDate, this.BirthDate.Value.ToIso8601());
             }
             else if (this.Age != null)
             {
-                s.AddValue("a", this.Age.ToString());
+                s.AddValue(Constants.TravelerKeys.Age, this.Age.ToString());
             }
 
             if (this.TripCost != null && this.TripCost >= 0)
             {
-                s.AddValue("tc", this.TripCost.ToString());
+                s.AddValue(Constants.TravelerKeys.TripCost, this.TripCost.ToString());
             }
 
             return s.Serialize(DelimiterType.Object);

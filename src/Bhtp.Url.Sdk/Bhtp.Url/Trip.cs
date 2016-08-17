@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bhtp.Url.Utility;
+using System;
 
 namespace Bhtp.Url
 {
@@ -58,41 +59,41 @@ namespace Bhtp.Url
 
             if (!string.IsNullOrEmpty(this.DestinationCountryIsoCode2))
             {
-                s.AddValue("dc", this.DestinationCountryIsoCode2);
+                s.AddValue(Constants.TripKeys.DestinationCountryIsoCode2, this.DestinationCountryIsoCode2);
             }
 
             if (!string.IsNullOrEmpty(this.ResidencePostalCode))
             {
-                s.AddValue("rs", this.ResidencePostalCode);
+                s.AddValue(Constants.TripKeys.Residence, this.ResidencePostalCode);
             }
             else if (!string.IsNullOrEmpty(this.ResidenceStateIsoCode2))
             {
-                s.AddValue("rs", this.ResidenceStateIsoCode2);
+                s.AddValue(Constants.TripKeys.Residence, this.ResidenceStateIsoCode2);
             }
 
             if (this.DepartureDate != null && this.DepartureDate.HasValue)
             {
-                s.AddValue("dd", this.DepartureDate.Value.ToString("yyyy-MM-dd"));
+                s.AddValue(Constants.TripKeys.DepartureDate, this.DepartureDate.Value.ToIso8601());
             }
 
             if (this.ReturnDate != null && this.ReturnDate.HasValue)
             {
-                s.AddValue("rd", this.ReturnDate.Value.ToString("yyyy-MM-dd"));
+                s.AddValue(Constants.TripKeys.ReturnDate, this.ReturnDate.Value.ToIso8601());
             }
 
             if (this.InitialPaymentDate != null && this.InitialPaymentDate.HasValue)
             {
-                s.AddValue("pd", this.InitialPaymentDate.Value.ToString("yyyy-MM-dd"));
+                s.AddValue(Constants.TripKeys.InitialPaymentDate, this.InitialPaymentDate.Value.ToIso8601());
             }
 
             if (!string.IsNullOrEmpty(this.PolicyHolderEmail))
             {
-                s.AddValue("e", this.PolicyHolderEmail);
+                s.AddValue(Constants.TripKeys.PolicyHolderEmail, this.PolicyHolderEmail);
             }
 
             if (this.TotalTravelerCount != null)
             {
-                s.AddValue("tt", this.TotalTravelerCount.ToString());
+                s.AddValue(Constants.TripKeys.TotalTravelerCount, this.TotalTravelerCount.ToString());
             }
 
             return s.Serialize(DelimiterType.Link);

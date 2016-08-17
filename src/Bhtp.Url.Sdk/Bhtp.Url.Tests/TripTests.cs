@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Bhtp.Url.Utility;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using Xunit;
 
 namespace Bhtp.Url.Tests
@@ -13,13 +15,13 @@ namespace Bhtp.Url.Tests
             public static string ResidencePostalCode = "54481";
 
             public static DateTime? DepartureDate = DateTime.Today.AddDays(30);
-            public static string DepartureDateString = DepartureDate.Value.ToString("yyyy-MM-dd");
+            public static string DepartureDateString = DepartureDate.Value.ToIso8601();
 
             public static DateTime? ReturnDate = DateTime.Today.AddDays(40);
-            public static string ReturnDateString = ReturnDate.Value.ToString("yyyy-MM-dd");
+            public static string ReturnDateString = ReturnDate.Value.ToIso8601();
 
             public static DateTime? InitialPaymentDate = DateTime.Today.AddDays(-15);
-            public static string InitialPaymentDateString = InitialPaymentDate.Value.ToString("yyyy-MM-dd");
+            public static string InitialPaymentDateString = InitialPaymentDate.Value.ToIso8601();
 
             public static string PolicyHolderEmail = "rickharrison@pawnshop.com";
             public static int? TotalTravelerCount = 5;

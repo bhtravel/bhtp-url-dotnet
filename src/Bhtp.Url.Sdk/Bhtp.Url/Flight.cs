@@ -1,4 +1,5 @@
 ﻿using System;
+using Bhtp.Url.Utility;
 
 namespace Bhtp.Url
 {
@@ -59,27 +60,27 @@ namespace Bhtp.Url
 
             if (this.DepartureDate != null && this.DepartureDate.HasValue)
             {
-                s.AddValue("d", this.DepartureDate.Value.ToString("yyyy-MM-dd"));
+                s.AddValue(Constants.FlightKeys.DepartureDate, this.DepartureDate.Value.ToIso8601());
             }
 
             if (this.FlightNumber != null)
             {
-                s.AddValue("n", this.FlightNumber.ToString());
+                s.AddValue(Constants.FlightKeys.FlightNumber, this.FlightNumber.ToString());
             }
 
             if (!string.IsNullOrEmpty(this.AirlineCode))
             {
-                s.AddValue("ac", this.AirlineCode);
+                s.AddValue(Constants.FlightKeys.AirlineCode, this.AirlineCode);
             }
 
             if (!string.IsNullOrEmpty(this.DepartureAirportCode))
             {
-                s.AddValue("da", this.DepartureAirportCode);
+                s.AddValue(Constants.FlightKeys.DepartureAirportCode, this.DepartureAirportCode);
             }
 
             if (!string.IsNullOrEmpty(this.ArrivalAirportCode))
             {
-                s.AddValue("aa", this.ArrivalAirportCode);
+                s.AddValue(Constants.FlightKeys.ArrivalAirportCode, this.ArrivalAirportCode);
             }
 
             return s.Serialize(DelimiterType.Object);

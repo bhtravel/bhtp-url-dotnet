@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bhtp.Url.Utility;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -107,18 +108,18 @@ namespace Bhtp.Url
 
             if (!string.IsNullOrEmpty(this.AgentCode))
             {
-                s.AddValue("utm_source", this.AgentCode);
-                s.AddValue("utm_medium", "Partner");
+                s.AddValue(Constants.AnalyticsKeys.Source, this.AgentCode);
+                s.AddValue(Constants.AnalyticsKeys.Medium, Constants.Partner);
             }
 
             if (!string.IsNullOrEmpty(this.CampaignId))
             {
-                s.AddValue("campaign", this.CampaignId);
+                s.AddValue(Constants.AnalyticsKeys.Campaign, this.CampaignId);
             }
 
             if (!string.IsNullOrEmpty(this.ProductId))
             {
-                s.AddValue("package", this.ProductId);
+                s.AddValue(Constants.AnalyticsKeys.Package, this.ProductId);
             }
 
             link.Append(s.Serialize(DelimiterType.Link));
@@ -130,7 +131,7 @@ namespace Bhtp.Url
 
                 if (tripString.Length > 0 && link.Length > 0)
                 {
-                    link.Append("&");
+                    link.Append(Constants.QueryStringPairDelimeter);
                 }
 
                 link.Append(tripString);
@@ -143,7 +144,7 @@ namespace Bhtp.Url
 
                 if (travelerString.Length > 0)
                 {
-                    link.Append("&ph=" + travelerString);
+                    link.Append(this.GetQueryStringKey(Constants.TripKeys.PolicyHolder) + travelerString);
                 }
             }
 
@@ -151,7 +152,7 @@ namespace Bhtp.Url
             {
                 foreach (Traveler traveler in this.Travelers)
                 {
-                    string travelerString = "&t=" + traveler.Serialize();
+                    string travelerString = this.GetQueryStringKey(Constants.TripKeys.Travelers) + traveler.Serialize();
                     link.Append(travelerString);
                 }
             }
@@ -161,34 +162,45 @@ namespace Bhtp.Url
             {
                 foreach (Flight flight in this.Flights)
                 {
-                    string flightString = "&f=" + flight.Serialize();
+                    string flightString = this.GetQueryStringKey(Constants.TripKeys.Flights) + flight.Serialize();
                     link.Append(flightString);
                 }
             }
 
-            if (link.Length > 0 && link[0] == '&')
+            if (link.Length > 0 && link[0].ToString() == Constants.QueryStringPairDelimeter)
             {
                 link = link.Remove(0, 1);
             }
 
-            string env = string.Empty;
+            string baseUrl = Constants.ProdBaseUrl;
 
             if (this.EnableProdMode != true)
             {
-                env = "sbx-";
+                baseUrl = Constants.PreProdBaseUrl;
             }
 
             StringBuilder baseLink = new StringBuilder();
-            baseLink.Append($"https://{env}www.bhtp.com/i");
+            baseLink.Append(baseUrl);
 
             if (link.Length > 0)
             {
-                baseLink.Append("?");
+                baseLink.Append(Constants.QueryStringStart);
             }
 
             StringBuilder result = new StringBuilder();
             result.Append(baseLink.ToString());
             result.Append(link.ToString());
+
+            return result.ToString();
+        }
+
+        private string GetQueryStringKey(string key)
+        {
+            StringBuilder result = new StringBuilder();
+
+            result.Append(Constants.QueryStringPairDelimeter);
+            result.Append(key);
+            result.Append(Constants.QueryStringValueDelimiter);
 
             return result.ToString();
         }

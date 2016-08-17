@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bhtp.Url.Utility;
 using Xunit;
 
 namespace Bhtp.Url.Tests
@@ -7,7 +8,7 @@ namespace Bhtp.Url.Tests
     public class FlightTestsBase
     {
         protected static DateTime DepartureDate = new DateTime(2016, 6, 24);
-        protected static string DepartureDateString = DepartureDate.ToString("yyyy-MM-dd");
+        protected static string DepartureDateString = DepartureDate.ToIso8601();
         protected static int FlightNumber = 1234;
         protected static string AirlineCode = "DL";
         protected static string DepartureAirportCode = "PNS";
