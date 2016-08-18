@@ -153,8 +153,8 @@ public string ArrivalAirportCode { get; set; }
 
 The Flight constructor accepts the departure date, flight number, airline code, departure airport code, and arrival airport code;
 
-- **departureDate**: the date of the flight's departure in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Dates) format.
-- **flightNumber**: The number of the flight.
-- **airlineCode**: The [IATA code](http://www.iata.org/about/members/Pages/airline-list.aspx?All=true) of the airline that is servicing the flight (Example: Delta Air Lines Inc. = DL).
-- **departureAirportCode**: The [IATA code](https://www.world-airport-codes.com/) of the airport the flight departs from (Example: O'Hare International Airport = ORD).
-- **arrivalAirportCode**: The [IATA code](https://www.world-airport-codes.com/) of the airport the flight arrives at.
+- **DepartureDate**: the date of the flight's departure in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Dates) format.
+- **FlightNumber**: The number of the flight.
+- **AirlineCode**: The [IATA code](http://www.iata.org/about/members/Pages/airline-list.aspx?All=true) of the airline that is servicing the flight (Example: Delta Air Lines Inc. = DL).
+- **DepartureAirportCode**: The [IATA code](https://www.world-airport-codes.com/) of the airport the flight departs from (Example: O'Hare International Airport = ORD).
+- **ArrivalAirportCode**: The [IATA code](https://www.world-airport-codes.com/) of the airport the flight arrives at.
