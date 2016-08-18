@@ -1,6 +1,14 @@
 # bhtp-url-dotnet
 A package to integrate with Berkshire Hathaway Travel Protection's consumer website.
 
+## Installing
+
+To install, run the following command in the Package Manager Console
+
+```
+PM> Install-Package Bhtp-Url-DotNet
+```
+
 ## Things to Know
 - Any parameters that do not have a value, will not be added to the integration url when using this package
 - All dates follow [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Dates) standard
@@ -60,7 +68,7 @@ data.Trip.ResidencePostalCode = "54481";
 data.Trip.DepartureDate = new DateTime(2016, 9, 24);
 data.Trip.ReturnDate = new DateTime(2016, 10, 10);
 data.Trip.InitialPaymentDate = new DateTime(2016, 6, 15);
-data.Trip.PolicyholderEmail = "sherlock.holmes@bhtp.com";
+data.Trip.PolicyHolderEmail = "sherlock.holmes@bhtp.com";
 data.Trip.TotalTravelerCount = 3;
 
 // Flights
@@ -68,8 +76,8 @@ data.AddFlight(new Bhtp.Url.Flight(new DateTime(2016, 9, 24), 1234, "DL", "PNS",
 data.AddFlight(new Bhtp.Url.Flight(new DateTime(2016, 9, 27), 2665, "AA", "ATL", "LAX"));
 
 // Policyholder
-data.Policyholder.TripCost = 100m;
-data.Policyholder.Age = 34;
+data.PolicyHolder.TripCost = 100m;
+data.PolicyHolder.Age = 34;
 
 // Travelers
 Bhtp.Url.Traveler traveler1 = new Bhtp.Url.Traveler();

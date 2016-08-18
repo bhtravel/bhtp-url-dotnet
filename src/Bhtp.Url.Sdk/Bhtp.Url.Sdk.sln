@@ -8,11 +8,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F82B10A7-AAD0-45E0-9ACC-D0DC1DEFB6ED}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		..\..\LICENSE.md = ..\..\LICENSE.md
+		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhtp.Url.Tests", "Bhtp.Url.Tests\Bhtp.Url.Tests.csproj", "{C3E3F29A-B153-4078-998F-69B78A0D32AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhtp.Url", "Bhtp.Url\Bhtp.Url.csproj", "{CACA5EE2-1683-434D-B605-38DF404FE9E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bhtp.Url.Demo", "Bhtp.Url.Demo\Bhtp.Url.Demo.csproj", "{8FC12110-B458-4D8C-8635-29155BC9ACF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +32,10 @@ Global
 		{CACA5EE2-1683-434D-B605-38DF404FE9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACA5EE2-1683-434D-B605-38DF404FE9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACA5EE2-1683-434D-B605-38DF404FE9E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC12110-B458-4D8C-8635-29155BC9ACF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC12110-B458-4D8C-8635-29155BC9ACF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC12110-B458-4D8C-8635-29155BC9ACF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC12110-B458-4D8C-8635-29155BC9ACF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
