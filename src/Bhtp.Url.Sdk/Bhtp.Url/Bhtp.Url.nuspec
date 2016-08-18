@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Bhtp-Url-DotNet</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <iconUrl>https://bhtpcdn.blob.core.windows.net/images/BHTPLogo.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial alpha release of the Bhtp Url SDK for .Net.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+</package>
