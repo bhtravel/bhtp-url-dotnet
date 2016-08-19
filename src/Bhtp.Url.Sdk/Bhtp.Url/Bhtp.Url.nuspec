@@ -6,10 +6,12 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
+    <licenseUrl>https://github.com/bhtravel/bhtp-url-dotnet/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/bhtravel/bhtp-url-dotnet</projectUrl>
     <iconUrl>https://bhtpcdn.blob.core.windows.net/images/BHTPLogo.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial alpha release of the Bhtp Url SDK for .Net.</releaseNotes>
+    <releaseNotes>Initial release of the Bhtp Url SDK for .Net. See Project Url for documentation.</releaseNotes>
     <copyright>Copyright 2016</copyright>
   </metadata>
 </package>
